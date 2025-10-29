@@ -16,74 +16,20 @@ export default function Home() {
     <div className="bg-heritage-cream">
       <MyNav />
       
-      {/* Hero Section - Heritage Design */}
-      <section className="relative min-h-[600px] md:min-h-[700px] overflow-hidden bg-ivory">
-        {/* Subtle Heritage Pattern */}
-        <div className="absolute inset-0 opacity-[0.015]">
-          <div className="w-full h-full" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='40' y='45' text-anchor='middle' font-size='28' fill='%238B4513'%3Eॐ%3C/text%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px'
-          }}></div>
-        </div>
-
+      {/* Hero Section - Temple Theme Design */}
+      <section className="relative min-h-[700px] md:min-h-[800px] overflow-hidden">
         {/* Language Switcher - Fixed Position */}
         <div className="absolute top-6 right-6 z-20">
           <LanguageSwitcher />
         </div>
 
-        <div className="relative grid md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
-          {/* Left: Content */}
+        <div className="relative grid md:grid-cols-2 min-h-[700px] md:min-h-[800px]">
+          {/* Left: Image with Overlay */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-20 bg-heritage-cream/90"
-          >
-            <div className="max-w-xl space-y-6">
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-sandalwood text-xs font-light tracking-[0.3em] uppercase block"
-                style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}
-              >
-                {t('home.subtitle')}
-              </motion.span>
-              
-              <h1 className="text-5xl md:text-7xl font-light text-deep-brown leading-tight tracking-wide" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
-                {t('home.title')}
-              </h1>
-              
-              <p className="text-incense text-base md:text-lg leading-relaxed font-light">
-                {t('home.description')}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Link href="/aarti-pooja">
-                  <button className="bg-sandalwood text-ivory px-8 py-3 rounded-sm font-light transition-all duration-300 hover:bg-deep-brown border border-sandalwood shadow-sm" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
-                    {t('home.bookAarti')}
-                  </button>
-                </Link>
-                <Link href="/howtoreachus">
-                  <button className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
-                    {t('home.planVisit')}
-                  </button>
-                </Link>
-                <Link href="/about">
-                  <button className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
-                    {t('home.learnMore')}
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative min-h-[400px] md:min-h-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+            className="relative min-h-[400px] md:min-h-full order-2 md:order-1"
           >
             <Image
               src="/images/kuberji/kuberji1.jpeg"
@@ -92,258 +38,387 @@ export default function Home() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-heritage-cream/10" />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Section - Heritage Minimal */}
-      <section className="py-20 bg-sandalwood/5 border-y border-sandalwood/10">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { number: "1000+", label: language === 'hi' ? "वर्षों की विरासत" : "Years of Heritage" },
-              { number: "365", label: language === 'hi' ? "दिनों की प्रार्थना" : "Days of Prayer" },
-              { number: "50+", label: language === 'hi' ? "वार्षिक कार्यक्रम" : "Annual Events" },
-              { number: "ॐ", label: language === 'hi' ? "आशीर्वाद" : "Blessings" },
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" />
+            
+            {/* Text Overlay on Image */}
+            <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-12 lg:px-16 text-white">
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="space-y-2"
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="text-sm font-light tracking-[0.25em] uppercase mb-4"
+                style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}
               >
-                <div className="text-4xl md:text-5xl font-light text-sandalwood" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
-                  {stat.number}
-                </div>
-                <div className="text-sm md:text-base text-incense font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
-                  {stat.label}
-                </div>
+                {t('home.subtitle')}
+              </motion.span>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight mb-6 max-w-lg" 
+                style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}
+              >
+                {t('home.title')}
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+                className="text-base md:text-lg leading-relaxed font-light mb-8 max-w-md text-gray-100"
+                style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}
+              >
+                {t('home.description')}
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+              >
+                <Link href="/aarti-pooja">
+                  <button className="bg-sandalwood hover:bg-sandalwood/90 text-white px-8 py-3 font-light transition-all duration-300 shadow-lg" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                    {t('home.bookAarti')}
+                  </button>
+                </Link>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </motion.div>
 
-      {/* About Section - Minimal */}
-      <section className="py-20 px-4 max-w-6xl mx-auto bg-white">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-12 items-center"
-        >
-          <div className="relative h-[400px] md:h-[500px] rounded overflow-hidden shadow-xl order-2 md:order-1">
+          {/* Right: Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2 }}
+            className="relative min-h-[400px] md:min-h-full order-1 md:order-2 bg-sandalwood"
+          >
             <Image
               src="/images/milkbath2.jpeg"
               alt="Temple Ceremony"
               fill
-              className="object-cover hover:scale-105 transition-transform duration-500"
-              loading="lazy"
+              className="object-cover"
+              priority
             />
-          </div>
-          <div className="order-1 md:order-2">
-            <span className="text-[#C97A3C] text-sm font-semibold tracking-wider uppercase mb-3 block">
-              Sacred Heritage
-            </span>
-            <h2 className="text-4xl font-bold text-[#5A3825] mb-6 leading-tight">
-              The Divine Treasury of Lord Kuber
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed mb-4">
-              Lord Shri Badrinath&apos;s treasurer, Shri Kuber Bhandari, the treasurer of the gods, 
-              resides in this divine Kuber temple in Pandukeshwar during winters.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Located near Yog Badri, one of the Panch Badri, this sacred temple sits at 
-              the base of the Balkunwar peak at an altitude of 4,600 meters.
-            </p>
-            <Link href="/about">
-              <button className="bg-[#C97A3C] hover:bg-[#B5682B] text-white px-6 py-3 rounded font-semibold transition-all duration-300">
-                Discover More
-              </button>
-            </Link>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Gallery Preview */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-spiritual-green mb-4 font-quicksand">
-              Temple Gallery
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Explore the divine beauty of KuberJi Mandir
-            </p>
           </motion.div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              "/images/temple/temple-top-2.jpeg",
-              "/images/kuberji/kuber-chowk-3.jpeg",
-              "/images/milkbath2.jpeg",
-              "/images/carryin2.jpeg",
-            ].map((img, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
-              >
-                <Image
-                  src={img}
-                  alt={`Gallery ${idx + 1}`}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </div>
-          
-          <div className="text-center">
-            <Link href="/media">
-              <button className="border-2 border-spiritual-gold text-spiritual-gold hover:bg-spiritual-gold hover:text-white px-8 py-3 rounded font-semibold transition-all duration-300">
-                View Full Gallery
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Services Section - Full Width Images */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
+      {/* About Section with Image Background */}
+      <section className="relative py-24 px-4 bg-warm-beige temple-pattern-bg">
+        <div className="relative max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="grid md:grid-cols-2 gap-12 items-center"
           >
-            <span className="text-[#C97A3C] text-sm font-semibold tracking-wider uppercase mb-3 block">
-              What We Offer
-            </span>
-            <h2 className="text-4xl font-bold text-[#5A3825] mb-4">
-              Temple Services
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Participate in sacred rituals and receive divine blessings
-            </p>
-          </motion.div>
-        
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Daily Rituals",
-                desc: "Morning and evening aarti with sacred chants",
-                img: "/images/sitting.jpeg",
-              },
-              {
-                title: "Abhishekam",
-                desc: "Sacred bath ceremony for Lord Kuber",
-                img: "/images/milkbath2.jpeg",
-              },
-              {
-                title: "Prasad Seva",
-                desc: "Distribution of blessed offerings",
-                img: "/images/carryin2.jpeg",
-              },
-            ].map((service, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+            <div className="order-1 md:order-1 space-y-6">
+              <motion.span 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
+                className="text-sandalwood text-sm font-light tracking-[0.3em] uppercase block"
+                style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}
               >
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={service.img}
-                    alt={service.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-spiritual-green mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">{service.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                Sacred Heritage
+              </motion.span>
+              <h2 className="text-4xl md:text-5xl font-light text-deep-brown leading-tight" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+                The Divine Treasury of Lord Kuber
+              </h2>
+              <p className="text-lg text-incense leading-relaxed font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                Lord Shri Badrinath&apos;s treasurer, Shri Kuber Bhandari, the treasurer of the gods, 
+                resides in this divine Kuber temple in Pandukeshwar during winters.
+              </p>
+              <p className="text-lg text-incense leading-relaxed font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                Located near Yog Badri, one of the Panch Badri, this sacred temple sits at 
+                the base of the Balkunwar peak at an altitude of 4,600 meters.
+              </p>
+              <Link href="/about">
+                <button className="bg-sandalwood hover:bg-sandalwood/90 text-white px-8 py-3 font-light transition-all duration-300 shadow-md" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                  Discover More
+                </button>
+              </Link>
+            </div>
+            <div className="relative h-[400px] md:h-[500px] overflow-hidden order-2 md:order-2">
+              <Image
+                src="/images/sitting.jpeg"
+                alt="Temple Ceremony"
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Full Width Image Section */}
-      <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+      {/* Testimonial/Quote Section */}
+      <section className="relative py-24 px-4 bg-heritage-cream">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="flex justify-center gap-6 mb-8">
+              <Image src="/images/milkbath2.jpeg" alt="Devotee" width={120} height={120} className="rounded-full object-cover shadow-lg" loading="lazy" />
+              <Image src="/images/carryin2.jpeg" alt="Devotee" width={120} height={120} className="rounded-full object-cover shadow-lg" loading="lazy" />
+            </div>
+            <blockquote className="text-2xl md:text-3xl font-light text-incense leading-relaxed italic" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+              &quot;Through meditation, study, and community, discover the beauty of living in harmony with yourself and the world around you.&quot;
+            </blockquote>
+            <div className="pt-4">
+              <Link href="/aarti-pooja">
+                <button className="bg-sandalwood hover:bg-sandalwood/90 text-white px-10 py-3 font-light transition-all duration-300 shadow-md" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                  Begin Your Journey
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Large Feature Image Section */}
+      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
         <Image
-          src="/images/carrying.jpeg"
-          alt="Temple Devotees"
+          src="/images/temple/temple-top-2.jpeg"
+          alt="Temple Architecture"
           fill
           className="object-cover"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative h-full flex items-center justify-center px-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center text-white max-w-3xl"
+            className="max-w-4xl mx-auto text-center text-white"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Join Our Sacred Community
+            <h2 className="text-3xl md:text-5xl font-light mb-6 leading-tight" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+              Discover the Path to Inner Harmony and Enlightenment and Embrace Tranquility
             </h2>
-            <p className="text-xl text-gray-100 mb-8">
-              Experience divine blessings and spiritual growth
-            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Donation CTA */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      {/* Categories/Services Bar */}
+      <section className="bg-sandalwood py-6">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-white">
+            {[
+              { name: "Daily Rituals", icon: "✦" },
+              { name: "Abhishekam", icon: "✦" },
+              { name: "Meditation", icon: "✦" },
+              { name: "Sacred Offerings", icon: "✦" },
+              { name: "Ceremonies", icon: "✦" },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="flex items-center gap-2"
+              >
+                <span className="text-sm">{item.icon}</span>
+                <span className="text-base font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                  {item.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Grid Section */}
+      <section className="relative py-24 px-4 bg-heritage-cream temple-pattern-bg">
+        <div className="relative max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <span className="text-[#C97A3C] text-sm font-semibold tracking-wider uppercase mb-3 block">
-              Make a Difference
-            </span>
-            <h2 className="text-4xl font-bold mb-6 text-[#5A3825]">
-              Support Our Temple
+            <h2 className="text-4xl md:text-5xl font-light text-deep-brown mb-4" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+              Mindfulness
             </h2>
-            <p className="text-xl mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Your generous donations help us maintain the temple, conduct sacred ceremonies, 
-              and serve our devotees with love and devotion.
+          </motion.div>
+
+          <div className="grid grid-cols-3 gap-1 md:gap-2 mb-12">
+            {[
+              { img: "/images/kuberji/kuber-chowk-3.jpeg", label: "Dukkha" },
+              { img: "/images/sitting.jpeg", label: "Anicca" },
+              { img: "/images/carryin2.jpeg", label: "Anatta" },
+              { img: "/images/milkbath2.jpeg", label: "Karma" },
+              { img: "/images/carrying.jpeg", label: "Nirvana" },
+              { img: "/images/temple/temple-top-2.jpeg", label: "Samsara" },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="relative h-64 md:h-80 overflow-hidden group"
+              >
+                <Image
+                  src={item.img}
+                  alt={item.label}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300" />
+                <div className="absolute top-4 left-4 bg-white/90 px-4 py-2">
+                  <span className="text-sm text-deep-brown font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                    {item.label}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-1 md:gap-2">
+            {[
+              { img: "/images/kuberji/kuberji1.jpeg", label: "Eightfold Path" },
+              { img: "/images/milkbath2.jpeg", label: "Compassion" },
+              { img: "/images/carrying.jpeg", label: "Four Noble Truths" },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="relative h-64 md:h-80 overflow-hidden group"
+              >
+                <Image
+                  src={item.img}
+                  alt={item.label}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300" />
+                <div className="absolute top-4 left-4 bg-white/90 px-4 py-2">
+                  <span className="text-sm text-deep-brown font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                    {item.label}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Journey Section with Orange Background */}
+      <section className="relative py-24 px-4 bg-sandalwood">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-white space-y-6"
+          >
+            <span className="text-sm font-light tracking-[0.3em] uppercase block opacity-90" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+              Discover Peace, Purpose, and Community
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light leading-tight" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+              Journey of Mindfulness
+            </h2>
+            <p className="text-lg leading-relaxed font-light opacity-90" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+              We offer a range of programs and activities designed to support you on your path. From guided meditation sessions and Dharma teachings to mindfulness workshops and community service projects.
             </p>
-            <button className="bg-[#C97A3C] hover:bg-[#B5682B] text-white px-10 py-4 rounded text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
-              Make a Donation
-            </button>
+            <Link href="/services">
+              <button className="bg-white text-sandalwood hover:bg-heritage-cream px-10 py-3 font-light transition-all duration-300 shadow-md" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                Start Now
+              </button>
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative h-[400px] md:h-[500px]"
+          >
+            <Image
+              src="/images/sitting.jpeg"
+              alt="Meditation"
+              fill
+              className="object-cover"
+              loading="lazy"
+            />
           </motion.div>
         </div>
+      </section>
+
+      {/* Stats/Info Section */}
+      <section className="relative py-24 px-4 bg-heritage-cream temple-pattern-bg">
+        <div className="relative max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-12"
+          >
+            <span className="text-sandalwood text-sm font-light tracking-[0.3em] uppercase block" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+              Illuminate Minds, Together in Prayer
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light text-deep-brown leading-tight" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Playfair Display, serif' }}>
+              Awaken Your Spirit, Enlighten Your Mind, Transform Your World and Begin Your Journey
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 pt-8">
+              <div className="relative h-64 overflow-hidden">
+                <Image src="/images/milkbath2.jpeg" alt="Temple" fill className="object-cover" loading="lazy" />
+              </div>
+              <div className="text-left space-y-4">
+                <p className="text-lg text-incense leading-relaxed font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                  The Three Stones of Buddhism encapsulate the foundational principles of this ancient spiritual tradition. These jewels serve as a source of wisdom.
+                </p>
+                <p className="text-lg text-incense leading-relaxed font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Lora, serif' }}>
+                  Ethical conduct (Sila) forms the foundation of the path, guiding practitioners to live in harmony with themselves and others.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Photo Grid Section */}
+      <section className="grid md:grid-cols-3 gap-0">
+        {[
+          "/images/kuberji/kuberji1.jpeg",
+          "/images/carrying.jpeg",
+          "/images/carryin2.jpeg",
+        ].map((img, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: idx * 0.1 }}
+            viewport={{ once: true }}
+            className="relative h-64 md:h-96 overflow-hidden"
+          >
+            <Image
+              src={img}
+              alt={`Temple ${idx + 1}`}
+              fill
+              className="object-cover hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+            />
+          </motion.div>
+        ))}
       </section>
 
       <Footer />
