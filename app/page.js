@@ -3,17 +3,35 @@ import MyNav from "@/components/MyNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getTranslation } from "@/lib/translations";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const { language } = useLanguage();
   const t = (key) => getTranslation(language, key);
+  const { scrollYProgress } = useScroll();
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="bg-heritage-cream">
+      {/* Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-sandalwood origin-left z-50"
+        style={{ scaleX: scrollYProgress }}
+      />
+      
       <MyNav />
       
       {/* Hero Section - Heritage Design */}
@@ -37,7 +55,7 @@ export default function Home() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}
-            className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-20 bg-heritage-cream/90"
+            className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-16 md:py-20 bg-heritage-cream/90 relative z-10"
           >
             <div className="max-w-xl space-y-6">
               <motion.span
@@ -54,7 +72,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }}
-                className="text-5xl md:text-7xl font-light text-deep-brown leading-tight tracking-wide" 
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-deep-brown leading-tight tracking-wide" 
                 style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}
               >
                 {t('home.title')}
@@ -73,33 +91,33 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-3 pt-4"
+                className="flex flex-col sm:flex-row flex-wrap gap-3 pt-4"
               >
-                <Link href="/aarti-pooja">
+                <Link href="/aarti-pooja" className="w-full sm:w-auto">
                   <motion.button 
                     whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(139, 69, 19, 0.3)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="bg-sandalwood text-ivory px-8 py-3 rounded-sm font-light transition-all duration-300 hover:bg-deep-brown border border-sandalwood shadow-sm" 
+                    className="w-full sm:w-auto bg-sandalwood text-ivory px-6 sm:px-8 py-3 rounded-sm font-light transition-all duration-300 hover:bg-deep-brown border border-sandalwood shadow-sm" 
                     style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}
                   >
                     {t('home.bookAarti')}
                   </motion.button>
                 </Link>
-                <Link href="/howtoreachus">
+                <Link href="/howtoreachus" className="w-full sm:w-auto">
                   <motion.button 
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(139, 69, 19, 0.05)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" 
+                    className="w-full sm:w-auto border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-6 sm:px-8 py-3 rounded-sm font-light transition-all duration-300" 
                     style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}
                   >
                     {t('home.planVisit')}
                   </motion.button>
                 </Link>
-                <Link href="/about">
+                <Link href="/about" className="w-full sm:w-auto">
                   <motion.button 
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(139, 69, 19, 0.05)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" 
+                    className="w-full sm:w-auto border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-6 sm:px-8 py-3 rounded-sm font-light transition-all duration-300" 
                     style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}
                   >
                     {t('home.learnMore')}
@@ -393,28 +411,48 @@ export default function Home() {
             ].map((service, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: idx * 0.15,
+                  ease: [0.6, -0.05, 0.01, 0.99]
+                }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer"
               >
                 <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={service.img}
-                    alt={service.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                  <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ duration: 0.6 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={service.img}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    className="absolute inset-0 bg-sandalwood/20 transition-opacity duration-300"
+                  />
                 </div>
-                <div className="p-6">
+                <motion.div 
+                  initial={{ y: 10 }}
+                  whileHover={{ y: 0 }}
+                  className="p-6"
+                >
                   <h3 className="text-2xl font-bold text-spiritual-green mb-3">
                     {service.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">{service.desc}</p>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -450,30 +488,78 @@ export default function Home() {
       </section>
 
       {/* Donation CTA */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="space-y-6"
           >
-            <span className="text-[#C97A3C] text-sm font-semibold tracking-wider uppercase mb-3 block">
+            <motion.span 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-[#C97A3C] text-sm font-semibold tracking-wider uppercase block"
+            >
               Make a Difference
-            </span>
-            <h2 className="text-4xl font-bold mb-6 text-[#5A3825]">
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-3xl md:text-4xl font-bold text-[#5A3825]"
+            >
               Support Our Temple
-            </h2>
-            <p className="text-xl mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            >
               Your generous donations help us maintain the temple, conduct sacred ceremonies, 
               and serve our devotees with love and devotion.
-            </p>
-            <button className="bg-[#C97A3C] hover:bg-[#B5682B] text-white px-10 py-4 rounded text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
-              Make a Donation
-            </button>
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <motion.button 
+                whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(201, 122, 60, 0.4)" }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-[#C97A3C] hover:bg-[#B5682B] text-white px-8 md:px-10 py-3 md:py-4 rounded text-base md:text-lg font-semibold transition-all duration-300 shadow-lg"
+              >
+                Make a Donation
+              </motion.button>
+            </motion.div>
           </motion.div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          whileHover={{ scale: 1.1, backgroundColor: "#8B4513" }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 z-40 bg-sandalwood text-white p-4 rounded-full shadow-2xl cursor-pointer transition-colors duration-300"
+          aria-label="Scroll to top"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
+      )}
 
       <Footer />
     </div>
